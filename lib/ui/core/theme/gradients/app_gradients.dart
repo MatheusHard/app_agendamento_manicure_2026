@@ -2,8 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
-
-import 'app_colors.dart';
+import '../../colors/app_colors.dart';
 
 class AppGradients {
 

@@ -1,19 +1,15 @@
 
-import 'package:app_agendamento_manicure_2026/ui/enums/drawer_sections.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/pix_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/screen_arguments/ScreenArgumentsUser.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/core/app_colors.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/core/app_gradients.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/core/app_images.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/core/app_text_styles.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/metods/utils.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/widgets/appbar/app_bar.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/widgets/card/card_agendamento.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/widgets/drawer/drawer_sections.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/widgets/drawer/header_drawer.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/appbar/app_bar.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/card/card_agendamento.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/drawer/drawer_sections.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/drawer/header_drawer.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
+import '../core/colors/app_colors.dart';
+import '../core/constants/enums/drawer_sections.dart';
+import '../core/theme/styles/app_text_styles.dart';
+import '../core/utils/utils.dart';
 import '../data/api/agendamentoapi.dart';
 import '../data/api/clienteapi.dart';
 import '../data/api/configurations/dio/configs.dart';
@@ -21,6 +17,7 @@ import '../data/dto/agendamento_dto.dart';
 import '../data/models/agendamento.dart';
 import '../data/models/cliente.dart';
 import '../data/models/user.dart';
+import '../data/screen_arguments/ScreenArgumentsUser.dart';
 import 'cliente_page.dart';
 
 class HomePage extends StatefulWidget {

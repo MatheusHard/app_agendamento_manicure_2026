@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../pages/home_page.dart';
-import '../../pages/screen_arguments/ScreenArgumentsUser.dart';
-import '../../pages/utils/metods/utils.dart';
+import '../../core/utils/utils.dart';
+import '../../presentation/home_page.dart';
 import '../models/login.dart';
 import '../models/user.dart';
+import '../screen_arguments/ScreenArgumentsUser.dart';
 import 'configurations/dio/configs.dart';
 import 'interfaces/iloginapi.dart';
 

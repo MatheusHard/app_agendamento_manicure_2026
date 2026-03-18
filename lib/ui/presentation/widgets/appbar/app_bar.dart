@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../screen_arguments/ScreenArgumentsUser.dart';
-import '../../utils/core/app_gradients.dart';
-import '../../utils/core/app_text_styles.dart';
+
+import '../../../core/theme/gradients/app_gradients.dart';
+import '../../../core/theme/styles/app_text_styles.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
+
 
 class CustomAppBarUsuario extends StatelessWidget implements PreferredSizeWidget {
   final double width;

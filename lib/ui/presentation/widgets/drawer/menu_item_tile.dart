@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../enums/drawer_sections.dart';
+import '../../../core/constants/enums/drawer_sections.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 import '../../cliente_page.dart';
 import '../../home_page.dart';
 import '../../pix_page.dart';
-import '../../screen_arguments/ScreenArgumentsUser.dart';
 
 class MenuItemTile extends StatelessWidget {
   final int id;

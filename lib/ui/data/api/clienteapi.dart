@@ -1,7 +1,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../pages/utils/metods/utils.dart';
+import '../../core/utils/utils.dart';
 import '../dto/cliente_dto.dart';
 import '../models/cliente.dart';
 import 'configurations/dio/configs.dart';

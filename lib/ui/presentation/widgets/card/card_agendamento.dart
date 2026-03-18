@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
-
+import '../../../core/constants/imgs/app_images.dart';
 import '../../../data/api/configurations/dio/configs.dart';
-import '../../utils/core/app_images.dart';
-import '../../utils/metods/utils.dart';
+import '../../../core/utils/utils.dart';
 
 class CardAgendamento extends StatelessWidget {
   final String title;

@@ -1,6 +1,7 @@
 
-import 'package:app_agendamento_manicure_2026/ui/pages/screen_arguments/ScreenArgumentsUser.dart';
 import 'package:flutter/material.dart';
+
+import '../data/screen_arguments/ScreenArgumentsUser.dart';
 
 class AgendamentoPage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;

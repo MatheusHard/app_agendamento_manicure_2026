@@ -1,5 +1,5 @@
 
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/metods/utils.dart';
+import 'package:app_agendamento_manicure_2026/ui/core/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

@@ -1,8 +1,8 @@
-import 'package:app_agendamento_manicure_2026/ui/pages/agendamento_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/cliente_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/home_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/login_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/pages/pix_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/agendamento_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/cliente_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/home_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/login_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/pix_page.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

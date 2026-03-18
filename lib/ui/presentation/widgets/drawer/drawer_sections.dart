@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../enums/drawer_sections.dart';
-import '../../screen_arguments/ScreenArgumentsUser.dart';
+import '../../../core/constants/enums/drawer_sections.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 import 'menu_item_tile.dart';
 
 class MeuDrawerList extends StatelessWidget {

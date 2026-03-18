@@ -1,5 +1,6 @@
-import 'package:app_agendamento_manicure_2026/ui/pages/utils/core/core.dart';
 import 'package:flutter/material.dart';
+
+import '../core/colors/app_colors.dart';
 
 class PixPage extends StatefulWidget {
   const PixPage({super.key});

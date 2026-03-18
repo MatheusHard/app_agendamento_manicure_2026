@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../data/models/user.dart';
+import '../../data/models/user.dart';
 
   class Utils {
 

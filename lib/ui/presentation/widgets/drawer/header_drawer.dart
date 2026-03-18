@@ -1,7 +1,8 @@
-import 'package:app_agendamento_manicure_2026/ui/pages/screen_arguments/ScreenArgumentsUser.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/core/app_text_styles.dart';
+import '../../../core/theme/styles/app_text_styles.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
+
 
 class MeuHeadDrawer extends StatefulWidget {
   final ScreenArgumentsUser? usuarioLogado;
