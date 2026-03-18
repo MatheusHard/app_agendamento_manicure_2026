@@ -2,10 +2,11 @@ import 'package:app_agendamento_manicure_2026/ui/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
-import '../core/theme/gradients/app_gradients.dart';
-import '../core/theme/styles/app_text_styles.dart';
-import '../data/api/loginapi.dart';
-import '../data/models/user.dart';
+import '../../../core/theme/gradients/app_gradients.dart';
+import '../../../core/theme/styles/app_text_styles.dart';
+import '../../../data/api/loginapi.dart';
+import '../../../data/models/user.dart';
+
 
 
 class LoginPage extends StatefulWidget {

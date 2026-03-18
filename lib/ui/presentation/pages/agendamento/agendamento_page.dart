@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-
-import '../data/screen_arguments/ScreenArgumentsUser.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 
 class AgendamentoPage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;

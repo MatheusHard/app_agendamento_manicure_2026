@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/colors/app_colors.dart';
+import '../../../core/colors/app_colors.dart';
 
 class PixPage extends StatefulWidget {
   const PixPage({super.key});

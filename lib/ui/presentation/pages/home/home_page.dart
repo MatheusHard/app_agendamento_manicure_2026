@@ -1,24 +1,21 @@
-
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/appbar/app_bar.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/card/card_agendamento.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/drawer/drawer_sections.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/drawer/header_drawer.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-
-import '../core/colors/app_colors.dart';
-import '../core/constants/enums/drawer_sections.dart';
-import '../core/theme/styles/app_text_styles.dart';
-import '../core/utils/utils.dart';
-import '../data/api/agendamentoapi.dart';
-import '../data/api/clienteapi.dart';
-import '../data/api/configurations/dio/configs.dart';
-import '../data/dto/agendamento_dto.dart';
-import '../data/models/agendamento.dart';
-import '../data/models/cliente.dart';
-import '../data/models/user.dart';
-import '../data/screen_arguments/ScreenArgumentsUser.dart';
-import 'cliente_page.dart';
+import '../../../core/colors/app_colors.dart';
+import '../../../core/constants/enums/drawer_sections.dart';
+import '../../../core/theme/styles/app_text_styles.dart';
+import '../../../core/utils/utils.dart';
+import '../../../data/api/agendamentoapi.dart';
+import '../../../data/api/clienteapi.dart';
+import '../../../data/api/configurations/dio/configs.dart';
+import '../../../data/dto/agendamento_dto.dart';
+import '../../../data/models/agendamento.dart';
+import '../../../data/models/cliente.dart';
+import '../../../data/models/user.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 
 class HomePage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;

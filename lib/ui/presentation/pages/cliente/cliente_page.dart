@@ -15,16 +15,15 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 
-import '../core/constants/enums/drawer_sections.dart';
-import '../core/constants/imgs/app_images.dart';
-import '../core/theme/gradients/app_gradients.dart';
-import '../core/theme/styles/app_text_styles.dart';
-import '../data/api/clienteapi.dart';
-import '../data/dto/cliente_dto.dart';
-import '../data/models/cliente.dart';
-import '../data/models/user.dart';
-import '../data/screen_arguments/ScreenArgumentsUser.dart';
-import 'home_page.dart';
+import '../../../core/constants/enums/drawer_sections.dart';
+import '../../../core/constants/imgs/app_images.dart';
+import '../../../core/theme/gradients/app_gradients.dart';
+import '../../../core/theme/styles/app_text_styles.dart';
+import '../../../data/api/clienteapi.dart';
+import '../../../data/dto/cliente_dto.dart';
+import '../../../data/models/cliente.dart';
+import '../../../data/models/user.dart';
+import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 
 class ClientePage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;
