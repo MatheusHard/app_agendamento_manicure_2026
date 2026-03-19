@@ -6,6 +6,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import '../../../core/colors/app_colors.dart';
 import '../../../core/constants/enums/drawer_sections.dart';
+import '../../../core/constants/routes/app_routes.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../core/utils/utils.dart';
 
@@ -17,6 +18,8 @@ import '../../../data/models/user.dart';
 import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 import '../../../data/service/api/agendamento_api.dart';
 import '../../../data/service/api/cliente_api.dart';
+import '../../widgets/appbar/app_bar_usuario.dart';
+import '../../widgets/card/card_principal_item.dart';
 
 class HomePage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;
@@ -48,32 +51,21 @@ class _HomePageState extends State<HomePage> {
   bool _finalizado = false;
   late FocusNode _myFocusNodeHora;
   late FocusNode _myFocusNodeMinuto;
+  User? user;
 
   @override
   void initState() {
 
-    carregarClientes();
+    /*carregarClientes();
     userLogado = widget.userLogado;
     carregarAgendamentos(userLogado);
-    _initFocusNode();
-    testeAdd();
+    _initFocusNode();*/
+    _loadingUser();
+
     super.initState();
   }
 
-  // TODO
-  testeAdd() async {
-  /*  Cliente c = Cliente();
-    c.telephone = "83 999888";
-    c.cpf = "05697455521";
-    c.email = "chocho@gmail.com";
-    c.updatedAt = "2025-03-30T09:33:17.693631";
-    c.createdAt =  "2025-03-30T09:33:17.693631";
-    c.name = "Pit Bitoca";
-    ClienteApi(context).addCliente(c, 1);
-    */
-    var lista = await ClienteApi(context).getList(1, 1);
-    print(lista);
-  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -89,6 +81,33 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
+      appBar: AppBarUser(user, "", context),
+      body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 12,
+      mainAxisSpacing: 12,
+      children: [
+          CardPrincipalItem(icon: Icons.playlist_add_check_outlined, label: "Agenda", onTap: () {
+            Navigator.pushNamed(context, AppRoutes.agendamento);
+          }),
+          CardPrincipalItem(icon: Icons.people_alt_outlined, label: "Clientes", onTap: () {
+            Navigator.pushNamed(context, AppRoutes.cliente);
+          }),
+          CardPrincipalItem(icon: Icons.paypal_rounded, label: "Pix", onTap: () {
+            Navigator.pushNamed(context, AppRoutes.pix);
+          }),
+          CardPrincipalItem(icon: Icons.history_outlined, label: "Historico", onTap: () {
+
+          }),
+          CardPrincipalItem(icon: Icons.dashboard, label: "Dashboarding", onTap: () {}),
+      ],
+    ),
+    ),
+
+    )
+      /*Scaffold(
         key: key,
         appBar: CustomAppBarUsuario(
             width: width,
@@ -182,7 +201,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.green, // verde
           tooltip: 'Adicionar Cliente',
           child: const Icon(Icons.add, color: Colors.white,),),
-     ),);
+     )*/,);
   }
 
   _dialogSair() async {
@@ -609,6 +628,14 @@ class _HomePageState extends State<HomePage> {
       clienteSelected = agendamento?.cliente;
       date = DateTime.parse(agendamento!.updatedAt!);
       _dataController.text = Utils.formatarData(date.toString(), true);
+    });
+  }
+
+  ///METHODS
+  Future<void> _loadingUser() async {
+    final u = await Utils.recuperarUser();
+    setState(() {
+      user = u;
     });
   }
 }
