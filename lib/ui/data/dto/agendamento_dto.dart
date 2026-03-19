@@ -1,12 +1,12 @@
+import 'package:app_agendamento_manicure_2026/ui/data/dto/user_dto.dart';
 import '../models/cliente.dart';
-import '../models/user.dart';
 
 class AgendamentoDTO {
   int? id;
   String? createdAt;
   String? updatedAt;
   bool? finalizado;
-  User? user;
+  UserDTO? user;
   Cliente? cliente;
   String? observacao;
   String? dataInicial;
@@ -28,9 +28,8 @@ class AgendamentoDTO {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     finalizado = json['finalizado'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
-    cliente =
-    json['cliente'] != null ? new Cliente.fromJson(json['cliente']) : null;
+    user = json['user'] != null ? UserDTO.fromJson(json['user']) : null;
+    cliente = json['cliente'] != null ? Cliente.fromJson(json['cliente']) : null;
     observacao = json['observacao'];
     dataInicial = json['dataInicial'];
     dataFinal = json['dataFinal'];
@@ -45,7 +44,7 @@ class AgendamentoDTO {
     if (user != null) {
       data['user'] = user!.toJson();
     }
-    if (this.cliente != null) {
+    if (cliente != null) {
       data['cliente'] = cliente!.toJson();
     }
     data['observacao'] = observacao;

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app_agendamento_manicure_2026/ui/core/colors/app_colors.dart';
 
 import 'package:app_agendamento_manicure_2026/ui/core/utils/utils.dart';
+import 'package:app_agendamento_manicure_2026/ui/data/dto/user_dto.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/appbar/app_bar.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/card/card_cliente.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/drawer/drawer_sections.dart';
@@ -146,7 +147,8 @@ class _ClientePageState extends State<ClientePage> {
                 });
                 ///Atualizar o Cliente pra Deletado:
                 cliente.deletado = true;
-                await _atualizarCliente(cliente, userLogado?.data.user.id, context);
+                //cliente = await _generateCliente();
+               // await _atualizarCliente(cliente, userLogado?.data.user.id, context);
 
               },
               child: CardCliente(
@@ -251,7 +253,7 @@ class _ClientePageState extends State<ClientePage> {
     try {
       ///Filters
       ClienteDTO filters = ClienteDTO();
-      filters.user = User(id: userLogado?.data.user.id);
+      filters.user = UserDTO(id: userLogado?.data.user.id);
       final dados = await ClienteApi(context).getListByFilter(filters);
       setState(() {
         listaClientes = dados;
@@ -331,7 +333,7 @@ class _ClientePageState extends State<ClientePage> {
                       setState(() {
                         isLoader = true;
                       });
-                      Cliente c = await _generateCliente();
+                      ClienteDTO c = await _generateCliente();
                       if(!editar) {
                         await _cadastrarCliente(c, argsUser.data.user.id, context);
                       }else {
@@ -570,9 +572,9 @@ class _ClientePageState extends State<ClientePage> {
     return flag;
   }
  ///Retornar um cliente
- Future<Cliente> _generateCliente() async {
+ Future<ClienteDTO> _generateCliente() async {
 
-   Cliente cliente = Cliente();
+   ClienteDTO cliente = ClienteDTO();
     cliente.name = _nameController.text;
     cliente.telephone = _phoneController.text;
     cliente.cpf = _cpfController.text;
@@ -585,12 +587,12 @@ class _ClientePageState extends State<ClientePage> {
   return cliente;
 }
   ///Add Cliente
-  Future<bool> _cadastrarCliente(Cliente c, user_id, BuildContext context) async {
+  Future<bool> _cadastrarCliente(ClienteDTO c, user_id, BuildContext context) async {
       return await ClienteApi(context).addCliente(c, user_id);
   }
 
   ///Add Cliente
-  Future<bool> _atualizarCliente(Cliente c, user_id, BuildContext context) async {
+  Future<bool> _atualizarCliente(ClienteDTO c, user_id, BuildContext context) async {
     return await ClienteApi(context).updateCliente(c, user_id);
   }
 

@@ -17,7 +17,7 @@ class ClienteApi  {
     _context = context;
   }
 
-  Future<bool> addCliente(Cliente cliente, int user_id) async {
+  Future<bool> addCliente(ClienteDTO cliente, int user_id) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
 
     var response = await _customDio.dio.post(URL,
@@ -64,7 +64,7 @@ class ClienteApi  {
     return [];
   }
 
-  Future<bool> updateCliente(Cliente cliente, int user_id) async {
+  Future<bool> updateCliente(ClienteDTO cliente, int user_id) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
 
     var response = await _customDio.dio.put(URL,

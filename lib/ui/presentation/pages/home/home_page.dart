@@ -10,6 +10,7 @@ import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../core/utils/utils.dart';
 
 import '../../../data/dto/agendamento_dto.dart';
+import '../../../data/dto/user_dto.dart';
 import '../../../data/models/agendamento.dart';
 import '../../../data/models/cliente.dart';
 import '../../../data/models/user.dart';
@@ -214,8 +215,8 @@ class _HomePageState extends State<HomePage> {
 
     try {
       ///Filters
-      AgendamentoDTO a = AgendamentoDTO(cliente: Cliente(), user: User(id: userLogado?.data.user.id));
-      a.user = User(id: userLogado?.data.user.id);
+      AgendamentoDTO a = AgendamentoDTO(cliente: Cliente(), user: UserDTO(id: userLogado?.data.user.id));
+      a.user = UserDTO(id: userLogado?.data.user.id);
       a.cliente = Cliente();
       //a.dataInicial = Utils.getDataHora();
       //a.dataFinal = Utils.getDataHora();
@@ -576,7 +577,7 @@ class _HomePageState extends State<HomePage> {
   ///Gerar objeto Agendamento: TODO
   AgendamentoDTO _generateAgendamento(bool editar, String? created, int? id_agendamento) {
 
-      User user = User();
+      UserDTO user = UserDTO();
       Cliente cliente = Cliente();
       user.id = userLogado?.data.user.id;
       cliente.id = clienteSelected?.id;
