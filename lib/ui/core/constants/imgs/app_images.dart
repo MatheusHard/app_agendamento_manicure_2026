@@ -1,5 +1,6 @@
 class AppImages {
-
+  static String get logoImg => 'esmalte_logo.jpg';
+  static String get semfoto => "semfoto.png";
   static String get hierarchy => "assets/images/hierarchy.png";
   static String get data => "assets/images/data.png";
   static String get laptop => "assets/images/laptop.png";
@@ -18,6 +19,5 @@ class AppImages {
   static String get no_image => "assets/images/no_image.png";
   static String get zap => "assets/images/whatsapp.png";
   static String get phone => "assets/images/phonecall.png";
-  static String get semfoto => "assets/images/semfoto.png";
 
 }

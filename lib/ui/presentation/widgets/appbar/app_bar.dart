@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/theme/gradients/app_gradients.dart';
+import '../../../core/theme/provider/theme_provider.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 
@@ -24,10 +26,10 @@ class CustomAppBarUsuario extends StatelessWidget implements PreferredSizeWidget
       elevation: 0.0,
       flexibleSpace: Container(
         height: width / 3.5,
-        decoration: const BoxDecoration(
-          gradient: AppGradients.petMacho,
+        decoration: BoxDecoration(
+          gradient: context.watch<ThemeProvider>().currentGradient, // vem do provider
           color: Colors.orange,
-          boxShadow: [BoxShadow(blurRadius: 50.0)],
+          boxShadow: const [BoxShadow(blurRadius: 50.0)],
         ),
       ),
       actions: [

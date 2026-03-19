@@ -2,16 +2,20 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/models/user.dart';
+import '../constants/enums/app_platform.dart';
 
   class Utils {
 
   static const String _boolKey = 'isLoggedIn';
   ///Servidor
   static String URL_UPLOAD = "uploads/";
+  static String URL_IMG_WEB = "images/";
+  static String URL_IMG_ANDROID = "assets/images/";
 
   ///Local
   //static String URL_WEB_SERVICE = "http://192.168.0.7:5001/api/";
@@ -155,12 +159,7 @@ import '../../data/models/user.dart';
       }
       return data.toString();
   }
-  static SizedBox sizedBox(double largura, double altura) {
-    return SizedBox(
-      width: largura,
-      height: altura,
-    );
-  }
+
   static Image imageFromBase64String(String bytes){
     return Image.memory(
 
@@ -177,6 +176,32 @@ import '../../data/models/user.dart';
   static  Future<Map<String, String>> requestToken() async {
     var token = await recuperarToken();
     return { 'Authorization': 'Bearer $token' };
+  }
+  static SizedBox sizedBox({double largura = 0, double altura = 0}) {
+    return SizedBox(
+      width: largura,
+      height: altura,
+    );
+  }
+  /// Função que retorna a plataforma usada pelo Codigo
+  static AppPlatform getCurrentPlatform() {
+    if (kIsWeb) {
+      return AppPlatform.web;
+    }
+
+    if (Platform.isAndroid) return AppPlatform.android;
+    if (Platform.isIOS) return AppPlatform.ios;
+    if (Platform.isWindows) return AppPlatform.windows;
+    if (Platform.isLinux) return AppPlatform.linux;
+    if (Platform.isMacOS) return AppPlatform.macos;
+    if (Platform.isFuchsia) return AppPlatform.fuchsia;
+
+    return AppPlatform.unknown;
+  }
+  static imgUrlFinish(String url){
+    AppPlatform plataforma = Utils.getCurrentPlatform();
+    String baseImg = plataforma == AppPlatform.android ? Utils.URL_IMG_ANDROID : Utils.URL_IMG_WEB;
+    return '''$baseImg$url''';
   }
 }
 

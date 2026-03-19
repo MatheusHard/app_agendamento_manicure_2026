@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/theme/gradients/app_gradients.dart';
+import '../../../core/theme/provider/theme_provider.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
 
@@ -14,10 +16,10 @@ class AppBarUser extends PreferredSize {
     child: Container(
 
       height: 130,
-      decoration:  const BoxDecoration(
-        gradient: AppGradients.petMacho,
+      decoration:  BoxDecoration(
+        gradient: context.watch<ThemeProvider>().currentGradient, // vem do provider
         color: Colors.orange,
-        boxShadow:  [
+        boxShadow:  const [
           BoxShadow(blurRadius: 50.0)
         ],
        /* borderRadius: BorderRadius.vertical(

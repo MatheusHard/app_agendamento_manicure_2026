@@ -187,10 +187,10 @@ class _ClientePageState extends State<ClientePage> {
       elevation: 0.0,
       flexibleSpace: Container(
         height: width / 3.5,
-        decoration:  const BoxDecoration(
-          gradient: AppGradients.petMacho,
+        decoration:  BoxDecoration(
+          gradient: AppGradients.redColor,
           color: Colors.orange,
-          boxShadow:  [
+          boxShadow:  const [
             BoxShadow(blurRadius: 50.0)
           ],
 
@@ -307,9 +307,9 @@ class _ClientePageState extends State<ClientePage> {
                                   widgetName(), ///Input Nome
                                   widgetEmail(), ///Input Email
                                   widgetPhone(), ///Input Telefone
-                                  Utils.sizedBox(10, 20),
+                                  Utils.sizedBox(largura: 10, altura: 20),
                                   widgetFoto(() => _tirarFoto(setState)),
-                                  Utils.sizedBox(10, 20),
+                                  Utils.sizedBox(largura: 10, altura: 20),
                                   widgetContatos(cliente != null ? cliente.telephone! : ""), ///Buttons Encaminhar Telefone e Whattzap
 
                                 ],
