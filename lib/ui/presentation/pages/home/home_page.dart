@@ -8,14 +8,14 @@ import '../../../core/colors/app_colors.dart';
 import '../../../core/constants/enums/drawer_sections.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../core/utils/utils.dart';
-import '../../../data/api/agendamentoapi.dart';
-import '../../../data/api/clienteapi.dart';
-import '../../../data/api/configurations/dio/configs.dart';
+
 import '../../../data/dto/agendamento_dto.dart';
 import '../../../data/models/agendamento.dart';
 import '../../../data/models/cliente.dart';
 import '../../../data/models/user.dart';
 import '../../../data/screen_arguments/ScreenArgumentsUser.dart';
+import '../../../data/service/api/agendamento_api.dart';
+import '../../../data/service/api/cliente_api.dart';
 
 class HomePage extends StatefulWidget {
   final ScreenArgumentsUser? userLogado;
@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
   List<Cliente> listaClientes = [];
   Cliente? clienteSelected;
   DateTime date = DateTime.now();
-  final Configs _customDio = Configs();
 
   bool isLoading = true;
   final _observacaoController = TextEditingController();
@@ -327,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                       String? created = editar ? agendamento?.createdAt : null;
                       int? id = agendamento?.id;
 
-                      Agendamento a = _generateAgendamento(editar, created, id);
+                      AgendamentoDTO a = _generateAgendamento(editar, created, id);
                       if(!editar) {
                         await _cadastrarAgendamento(a, context);
                       }else {
@@ -356,11 +355,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
   ///Add Cliente
-  Future<bool> _cadastrarAgendamento(Agendamento a, BuildContext context) async {
+  Future<bool> _cadastrarAgendamento(AgendamentoDTO a, BuildContext context) async {
     return await AgendamentoApi(context).addAgendamento(a);
   }
   ///Add Cliente
-  Future<bool> _atualizarAgendamento(Agendamento a, BuildContext context) async {
+  Future<bool> _atualizarAgendamento(AgendamentoDTO a, BuildContext context) async {
     return await AgendamentoApi(context).updateAgendamento(a);
   }
   ///Input Clientes
@@ -574,8 +573,8 @@ class _HomePageState extends State<HomePage> {
     );
 }
 
-  ///Gerar objeto Agendamento:
-  Agendamento _generateAgendamento(bool editar, String? created, int? id_agendamento) {
+  ///Gerar objeto Agendamento: TODO
+  AgendamentoDTO _generateAgendamento(bool editar, String? created, int? id_agendamento) {
 
       User user = User();
       Cliente cliente = Cliente();
@@ -583,7 +582,7 @@ class _HomePageState extends State<HomePage> {
       cliente.id = clienteSelected?.id;
       String dataFormatada = Utils.generateDataHora(date, int.parse(_horaController.text), int.parse(_minutoController.text));
 
-      Agendamento a = Agendamento();
+      AgendamentoDTO a = AgendamentoDTO();
       if(editar) a.id = id_agendamento;
       a.observacao = _observacaoController.text;
       a.createdAt = editar ? created : Utils.generateDataHoraSpring();

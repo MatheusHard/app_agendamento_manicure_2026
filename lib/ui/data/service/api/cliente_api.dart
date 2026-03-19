@@ -1,16 +1,15 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../core/utils/utils.dart';
-import '../dto/cliente_dto.dart';
-import '../models/cliente.dart';
+import '../../../core/utils/utils.dart';
+import '../../dto/cliente_dto.dart';
+import '../../models/cliente.dart';
 import 'configurations/dio/configs.dart';
-import 'interfaces/iclienteapi.dart';
 
-class ClienteApi implements IClienteApi {
+class ClienteApi  {
 
   BuildContext? _context;
-  Configs _customDio = Configs();
+  final Configs _customDio = Configs();
   final URL = "/clientes";
   final FILTRAR = '/filtrar';
 
@@ -18,7 +17,6 @@ class ClienteApi implements IClienteApi {
     _context = context;
   }
 
-  @override
   Future<bool> addCliente(Cliente cliente, int user_id) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
 
@@ -47,7 +45,6 @@ class ClienteApi implements IClienteApi {
     return true;
   }
 
-  @override
   Future<List<Cliente>> getList(int user_id, int cliente_id) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
     var response = await _customDio.dio.get(URL,  options: Options(
@@ -67,7 +64,6 @@ class ClienteApi implements IClienteApi {
     return [];
   }
 
-  @override
   Future<bool> updateCliente(Cliente cliente, int user_id) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
 
@@ -96,7 +92,6 @@ class ClienteApi implements IClienteApi {
     return response.statusCode == 200;
   }
 
-  @override
   Future<List<Cliente>> getListByFilter(ClienteDTO cliente) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
     var response = await _customDio.dio.post(

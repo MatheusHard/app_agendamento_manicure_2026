@@ -174,6 +174,10 @@ import '../../data/models/user.dart';
   }
   static Uint8List fileFromBase64String(String bytes)=> base64.decode(bytes);
 
+  static  Future<Map<String, String>> requestToken() async {
+    var token = await recuperarToken();
+    return { 'Authorization': 'Bearer $token' };
+  }
 }
 
 

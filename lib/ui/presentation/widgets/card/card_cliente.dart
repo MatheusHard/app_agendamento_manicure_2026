@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import '../../../core/constants/imgs/app_images.dart';
-import '../../../data/api/configurations/dio/configs.dart';
 import '../../../core/utils/utils.dart';
+import '../../../data/service/api/configurations/dio/configs.dart';
 
 
 class CardCliente extends StatelessWidget {

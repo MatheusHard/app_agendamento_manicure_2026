@@ -1,29 +1,49 @@
-import 'package:app_agendamento_manicure_2026/ui/presentation/pages/agendamento/agendamento_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/presentation/pages/cliente/cliente_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/presentation/pages/home/home_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/presentation/pages/login/login_page.dart';
-import 'package:app_agendamento_manicure_2026/ui/presentation/pages/pix/pix_page.dart';
+import 'package:app_agendamento_manicure_2026/ui/core/theme/provider/theme_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:app_agendamento_manicure_2026/ui/core/constants/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() async {
+@pragma('vm:entry-point')
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Notifications.initNotifications(); TODO
 
+
+  //await AndroidAlarmManager.initialize(); TODO
+  //await AlarmManager.initialize(); TODO
 
   runApp(
-      MaterialApp(
-        title: 'Agendamento Manicure',
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/home_page': (BuildContext context) => HomePage(null),
-          '/cliente_page': (BuildContext context) => ClientePage(null),
-          '/agendamento_page': (BuildContext context) => AgendamentoPage(null),
-          '/login_page': (BuildContext context) =>  LoginPage(),
-          '/pix_page': (BuildContext context) =>  PixPage(),
-
-        },
-        initialRoute: '/login_page',
-      )
-
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
   );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
+    return MaterialApp(
+      title: 'Manicure',
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: AppRoutes.generateRoute,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
+      ],
+    );
+  }
 }
 
 

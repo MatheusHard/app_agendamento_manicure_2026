@@ -4,10 +4,8 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import '../../../core/theme/gradients/app_gradients.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
-import '../../../data/api/loginapi.dart';
 import '../../../data/models/user.dart';
-
-
+import '../../../data/service/api/login_api.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login_page';

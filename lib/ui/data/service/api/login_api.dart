@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../core/utils/utils.dart';
-import '../../presentation/pages/home/home_page.dart';
-import '../models/login.dart';
-import '../models/user.dart';
-import '../screen_arguments/ScreenArgumentsUser.dart';
+import '../../../core/utils/utils.dart';
+import '../../../presentation/pages/home/home_page.dart';
+import '../../models/login.dart';
+import '../../models/user.dart';
+import '../../screen_arguments/ScreenArgumentsUser.dart';
 import 'configurations/dio/configs.dart';
-import 'interfaces/iloginapi.dart';
 
-class LoginApi implements ILoginApi{
+class LoginApi {
 
   BuildContext? _context;
 
@@ -15,7 +14,6 @@ class LoginApi implements ILoginApi{
     _context = context;
   }
 
-  @override
   Future<bool> login(String username, String password, bool isChecked) async {
 
     bool flag = false;
