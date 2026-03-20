@@ -13,7 +13,7 @@ class CustomSwitchButton extends StatelessWidget {
     required this.onToggle,
     this.activeColor = Colors.green,
     this.inactiveColor = Colors.red,
-    this.label = "Fatura Paga?",
+    this.label = "Finalizado?",
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class CustomSwitchButton extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 10, height: 8),
-                Icon(Icons.document_scanner_outlined),
+                Icon(Icons.check_circle_outline),
                 const SizedBox(width: 12, height: 8),
                 Text(
                   label,

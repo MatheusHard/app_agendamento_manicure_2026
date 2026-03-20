@@ -15,6 +15,7 @@ class ClienteDropdownFormField extends FormField<Cliente> {
           validator: validator ??
               (value) {
                 if (value == null) {
+                  print('errrrrrrr');
                   return 'Selecione um cliente';
                 }
                 return null;

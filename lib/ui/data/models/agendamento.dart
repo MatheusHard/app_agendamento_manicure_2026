@@ -10,6 +10,7 @@ class Agendamento {
   User? user;
   Cliente? cliente;
   String? observacao;
+  String? dataAtendimento;
 
   Agendamento(
       {this.id,
@@ -18,7 +19,8 @@ class Agendamento {
         this.finalizado,
         this.user,
         this.cliente,
-        this.observacao});
+        this.observacao,
+        this.dataAtendimento});
 
   Agendamento.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -29,6 +31,7 @@ class Agendamento {
     cliente =
     json['cliente'] != null ? Cliente.fromJson(json['cliente']) : null;
     observacao = json['observacao'];
+    dataAtendimento = json['dataAtendimento'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +47,8 @@ class Agendamento {
       data['cliente'] = cliente!.toJson();
     }
     data['observacao'] = observacao;
+    data['dataAtendimento'] = dataAtendimento;
+
     return data;
   }
 }

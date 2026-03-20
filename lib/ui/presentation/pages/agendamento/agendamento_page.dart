@@ -97,7 +97,10 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
       ///Botão Add
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Navigator.pushNamed(context, AppRoutes.add_agendamento);
+          final resultado = await Navigator.pushNamed(context, AppRoutes.add_agendamento);
+          if(resultado == true){
+            await _loadingAgendamentos();
+          }
         },
         shape: const CircleBorder(),
         backgroundColor: Colors.green, // verde

@@ -11,6 +11,7 @@ class AgendamentoDTO {
   String? observacao;
   String? dataInicial;
   String? dataFinal;
+  String? dataAtendimento;
 
   AgendamentoDTO(
       {this.id,
@@ -21,7 +22,8 @@ class AgendamentoDTO {
         this.cliente,
         this.observacao,
         this.dataInicial,
-        this.dataFinal});
+        this.dataFinal,
+        this.dataAtendimento});
 
   AgendamentoDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,6 +35,7 @@ class AgendamentoDTO {
     observacao = json['observacao'];
     dataInicial = json['dataInicial'];
     dataFinal = json['dataFinal'];
+    dataAtendimento = json['dataAtendimento'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +53,8 @@ class AgendamentoDTO {
     data['observacao'] = observacao;
     data['dataInicial'] = dataInicial;
     data['dataFinal'] = dataFinal;
+    data['dataAtendimento'] = dataAtendimento;
+
     return data;
   }
 }

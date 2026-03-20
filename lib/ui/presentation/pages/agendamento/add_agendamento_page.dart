@@ -1,4 +1,8 @@
+import 'package:app_agendamento_manicure_2026/ui/data/dto/user_dto.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/buttons/normal_button/custom_button.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/buttons/switch_button/custom_switch_button.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/dropdown/cliente_dropdown_form_field.dart';
+import 'package:app_agendamento_manicure_2026/ui/presentation/widgets/inputs/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -23,19 +27,18 @@ class AddAgendamentoPage extends StatefulWidget {
 
 class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
 
-  Cliente? clienteSelected;
+  Cliente? _clienteSelected;
   List<Cliente> listaClientes = [];
   final _observacaoController = TextEditingController();
-  final _horaController = TextEditingController();
-  final _minutoController = TextEditingController();
-  final _dataAtendimentoController = TextEditingController();
+  var _mensagemErroCliente;
 
   bool _finalizado = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late FocusNode _myFocusNodeHora;
+  late FocusNode _focusNodeObsercacao;
   late FocusNode _myFocusNodeMinuto;
   User? user;
-  late DateTime _selectedDataAtendimento;
+  late DateTime _selectedDataAtendimento = DateTime.now();
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -65,22 +68,66 @@ class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
                   Utils.sizedBox(altura: 20.0, largura: 0),
                   Text("Cadastrar Agendamento", style: AppTextStyles.textoSentimentoNegritoWhite( 20, context),),
                   Utils.sizedBox(altura: 20.0, largura: 0),
+
+                  ///Cliente
                   ClienteDropdownFormField(
-                    initialValue: clienteSelected,
+                    initialValue: _clienteSelected,
                     listaClientes: listaClientes,
                     onChanged: (cliente) {
-                      clienteSelected = cliente;
+                      _clienteSelected = cliente;
                     },
+
                   ),
                   Utils.sizedBox(altura: 20.0, largura: 0),
-
+                  ///Data do Atendimento
                   CustomDatePickerField(
                     label: 'Data e Hora',
                     initialDateTime: DateTime.now(),
                     onDateTimeSelected: (dateTime) {
-                      print('Selecionado: $dateTime');
+                      _selectedDataAtendimento = dateTime;
                     },
-                  )
+                  ),
+                  Utils.sizedBox(altura: 20.0, largura: 0),
+                  /// Finalizado
+                  CustomSwitchButton(
+                    value: _finalizado,
+                    onToggle: (value) {
+                      setState(() {
+                        _finalizado = value;
+                      });
+                    },
+                    activeColor: Colors.green,
+                    inactiveColor: Colors.red,
+                  ),
+                  Utils.sizedBox(altura: 20.0, largura: 0),
+
+                  /// Observação
+                  CustomField(
+                    controller: _observacaoController,
+                    focusNode: _focusNodeObsercacao,
+                    hintText: "Observação",
+                    icon: Icons.textsms_outlined,
+                    keyboardType: TextInputType.text,
+                    validator: (value){
+                      return null;
+                    },
+                  ),
+                  Utils.sizedBox(altura: 40.0, largura: 0),
+                  /// Salvar
+                  CustomButton(
+                    radios: 20,
+                    height: 55,
+                    gradient: context.watch<ThemeProvider>().currentGradient, // vem do provider
+                    icon: Icons.monetization_on,
+                    isLoading: _isLoading,
+                    onTap: () async {
+                      if(_formKey.currentState!.validate()){
+                        await _addAgendamento(_generateAgendamento(),context, Navigator.of(context));
+                      }
+                    },
+                    label: 'Salvar',
+                    textStyle: AppTextStyles.textLogin,
+                  ),
                 ],
               ),
             ),
@@ -90,13 +137,24 @@ class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
 
   }
 
-  Future<bool> _addAgendamento(AgendamentoDTO a, BuildContext context) async {
-    return await AgendamentoApi(context).addAgendamento(a);
+  Future<void> _addAgendamento(AgendamentoDTO a, BuildContext context, NavigatorState navigator) async {
+
+    setState(() {_isLoading = true;});
+    try{
+      await AgendamentoApi(context).addAgendamento(a);
+      if (!mounted) return;
+      navigator.pop(true);
+    }catch(e){
+      print('Erro ao cadastrar o agendaiemnto: $e');
+
+    }finally{
+      setState(() {_isLoading = false;});
+    }
   }
 
   Future<void> _loadingClientes() async {
     try {
-      final dados = await ClienteApi(context).getList(1, 1);
+      final dados = await ClienteApi(context).getList(1, 1); //TODO
       setState(() {
         listaClientes = dados;
       });
@@ -107,14 +165,52 @@ class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
       });
     }
   }
-  _initFocusNode(){
-    _myFocusNodeHora = FocusNode();
-    _myFocusNodeMinuto = FocusNode();
+  void _initFocusNode(){
+    _focusNodeObsercacao = FocusNode();
   }
   Future<void> _loadingUser() async {
     final u = await Utils.recuperarUser();
     setState(() {
       user = u;
     });
+  }
+
+  AgendamentoDTO _generateAgendamento() {
+
+    UserDTO userDTO = UserDTO();
+    Cliente cliente = Cliente();
+    userDTO.id = user?.id;
+    cliente.id = _clienteSelected?.id;
+
+    AgendamentoDTO a = AgendamentoDTO();
+
+    a.observacao = _observacaoController.text;
+    a.createdAt = Utils.generateDataHoraSpring();
+    a.updatedAt = Utils.generateDataHoraSpring();
+    a.dataAtendimento = _selectedDataAtendimento.toIso8601String();
+    a.user = userDTO;
+    a.cliente = cliente;
+    a.finalizado = _finalizado;
+
+    return a;
+  }
+  ///Validar cadastro
+  bool _validateAgendamento() {
+    bool flag = true;
+
+    String? erroCliente;
+
+    if (_clienteSelected == null) {
+      erroCliente = 'Selecione um cliente';
+      flag = false;
+    }
+
+    // Atualiza os estados de erro depois de validar tudo
+    setState(() {
+      _mensagemErroCliente = erroCliente;
+      print('Erro cliente: $_mensagemErroCliente');
+    });
+
+    return flag;
   }
 }
