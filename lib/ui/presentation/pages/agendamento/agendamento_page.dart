@@ -73,28 +73,35 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
                   setState(() {
                     listaAgendamentos.removeAt(index);
                   });
-                  //TODO
-                  ///Atualizar o Agendamento pra Deletado:
-                  //agendamento.deletado = true;
-                  // await _atualizarAgendamento(agendamento, context);
-
+                  ///Delet Agendamento
+                   await _deletarAgendamento(_generateDeletAgendamento(agendamento), context);
                 },
                 child: CardAgendamento(
                   title: agendamento.cliente?.name ?? "Sem nome",
-                  subtitle: agendamento.updatedAt ?? "Sem data",
+                  subtitle: agendamento.dataAtendimento ?? "Sem data",
                   urlFotoCliente: agendamento.cliente?.photoName,
                   icon: agendamento.finalizado == true
                       ? Icons.check_circle
                       : Icons.schedule,
+                  ///Edit Agendamento
                   onTap: () async {
-                    //await _showDialogSaveAgendamento(context, userLogado!, true, agendamento); TODO
+                    final resultado = await Navigator.pushNamed(
+                      context,
+                      AppRoutes.edit_agendamento,
+                      arguments: {
+                        'agendamento': agendamento,
+                      },
+                    );
+                    if(resultado == true){
+                      await _loadingAgendamentos();
+                    }
                   },
                 ),
               );
             },
           )
       ),
-      ///Botão Add
+      ///Add Agendamento
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final resultado = await Navigator.pushNamed(context, AppRoutes.add_agendamento);
@@ -119,6 +126,7 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
       a.user = UserDTO(id: user?.id);
       a.cliente = Cliente();
       a.finalizado = false;
+      a.deletado = false;
 
       final dados = await AgendamentoApi(context).getListByFilter(a);
       setState(() {
@@ -136,5 +144,28 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
     setState(() {
       user = u;
     });
+  }
+  Future<bool> _deletarAgendamento(AgendamentoDTO a,  BuildContext context) async {
+    return await AgendamentoApi(context).updateAgendamento(a);
+  }
+  AgendamentoDTO _generateDeletAgendamento(Agendamento agendamento) {
+
+    UserDTO userDTO = UserDTO();
+    Cliente cliente = Cliente();
+    userDTO.id = user?.id;
+    cliente.id = agendamento.cliente?.id;
+
+    AgendamentoDTO a = AgendamentoDTO();
+    a.id = agendamento.id;
+    a.observacao = agendamento.observacao;
+    a.createdAt = agendamento.createdAt;
+    a.updatedAt = Utils.generateDataHoraSpring();
+    a.dataAtendimento = agendamento.dataAtendimento;
+    a.user = userDTO;
+    a.cliente = cliente;
+    a.finalizado = agendamento.finalizado;
+    a.deletado = true;
+
+    return a;
   }
 }

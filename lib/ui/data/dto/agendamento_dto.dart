@@ -1,4 +1,5 @@
 import 'package:app_agendamento_manicure_2026/ui/data/dto/user_dto.dart';
+import 'package:path/path.dart';
 import '../models/cliente.dart';
 
 class AgendamentoDTO {
@@ -12,6 +13,7 @@ class AgendamentoDTO {
   String? dataInicial;
   String? dataFinal;
   String? dataAtendimento;
+  bool? deletado;
 
   AgendamentoDTO(
       {this.id,
@@ -23,7 +25,8 @@ class AgendamentoDTO {
         this.observacao,
         this.dataInicial,
         this.dataFinal,
-        this.dataAtendimento});
+        this.dataAtendimento,
+        this.deletado});
 
   AgendamentoDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,6 +39,7 @@ class AgendamentoDTO {
     dataInicial = json['dataInicial'];
     dataFinal = json['dataFinal'];
     dataAtendimento = json['dataAtendimento'];
+    deletado = json['deletado'];
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +58,7 @@ class AgendamentoDTO {
     data['dataInicial'] = dataInicial;
     data['dataFinal'] = dataFinal;
     data['dataAtendimento'] = dataAtendimento;
+    data['deletado'] = deletado;
 
     return data;
   }

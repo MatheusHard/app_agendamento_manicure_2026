@@ -4,6 +4,7 @@ import 'package:app_agendamento_manicure_2026/ui/presentation/pages/agendamento/
 import 'package:app_agendamento_manicure_2026/ui/presentation/pages/cliente/cliente_page.dart';
 import 'package:app_agendamento_manicure_2026/ui/presentation/pages/pix/pix_page.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/agendamento.dart';
 import '../../../presentation/pages/home/home_page.dart';
 import '../../../presentation/pages/login/login_page.dart';
 import '../../../presentation/pages/perfil/perfil_page.dart';
@@ -28,14 +29,13 @@ class AppRoutes {
       case cliente:
         return MaterialPageRoute(builder: (_) => ClientePage(null));
       case agendamento:
-        /*final args = settings.arguments as Map<String, dynamic>;
-        final gasto = args['gasto'] as Gasto?;
-        final isEdit = args['isEdit'] as bool;*/
         return MaterialPageRoute(builder: (_) => AgendamentoPage(null));
       case add_agendamento:
         return MaterialPageRoute(builder: (_) => AddAgendamentoPage());
       case edit_agendamento:
-        return MaterialPageRoute(builder: (_) => EditAgendamentoPage());
+          final args = settings.arguments as Map<String, dynamic>;
+          final agendamento = args['agendamento'] as Agendamento?;
+        return MaterialPageRoute(builder: (_) => EditAgendamentoPage(agendamento: agendamento));
       case pix:
         return MaterialPageRoute(builder: (_) => PixPage());
       case perfil:

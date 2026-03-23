@@ -29,19 +29,7 @@ class AgendamentoApi {
   Future<bool> updateAgendamento(AgendamentoDTO a) async {
 
     var response = await _customDio.dio.put(URL,
-      data: a.toJson()/*{
-        "id": a.id,
-        "createdAt": a.createdAt,
-        "updatedAt": a.updatedAt,
-        "finalizado": a.finalizado,
-        "observacao": a.observacao,
-        "user": {
-          "id": a.user?.id
-        },
-        "cliente": {
-          "id": a.cliente?.id
-        }
-      },*/,
+      data: a.toJson(),
       options: Options(headers: await Utils.requestToken())
     );
     return response.statusCode == 200;
