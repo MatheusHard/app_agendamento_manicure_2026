@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/models/user.dart';
@@ -142,8 +144,8 @@ import '../constants/enums/app_platform.dart';
   );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-  static Future<String> base64String(Future<Uint8List> bytes) async {
-    return base64Encode(await bytes);
+  static Future<String> base64String(Uint8List bytes) async {
+    return base64Encode(bytes);
   }
   static String formatarDateTime(DateTime? data){
       if(data != null ){
@@ -206,6 +208,42 @@ import '../constants/enums/app_platform.dart';
   static String capitalizeFirstLetter(String text) {
     if (text.isEmpty) return text;
     return text[0].toUpperCase() + text.substring(1).toLowerCase();
+  }
+  // Máscara para telefone brasileiro com DDD
+  static MaskTextInputFormatter formaterPhone(){
+     return MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+    );
+  }
+  // Compactar a imagem vinda da foto
+  static Future<Uint8List?> compressImageBytes(
+      File file, {
+        int maxSizeKB = 100,
+        int minQuality = 10,
+        int initialQuality = 50,
+        int minWidth = 800,
+        int minHeight = 800,
+      }) async {
+    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+      file.path,
+      minWidth: minWidth,
+      minHeight: minHeight,
+      quality: initialQuality,
+    );
+    if (compressedBytes == null) return null;
+    int quality = initialQuality;
+    while (compressedBytes != null && compressedBytes.length > maxSizeKB * 1024 && quality > minQuality) {
+      quality -= 10;
+      compressedBytes = await FlutterImageCompress.compressWithFile(
+        file.path,
+        minWidth: minWidth,
+        minHeight: minHeight,
+        quality: quality,
+      );
+      if (compressedBytes == null) break;
+    }
+    return compressedBytes;
   }
 }
 

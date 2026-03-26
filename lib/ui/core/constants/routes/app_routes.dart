@@ -5,6 +5,9 @@ import 'package:app_agendamento_manicure_2026/ui/presentation/pages/cliente/clie
 import 'package:app_agendamento_manicure_2026/ui/presentation/pages/pix/pix_page.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/agendamento.dart';
+import '../../../data/models/cliente.dart';
+import '../../../presentation/pages/cliente/add_cliente_page.dart';
+import '../../../presentation/pages/cliente/edit_cliente_page.dart';
 import '../../../presentation/pages/home/home_page.dart';
 import '../../../presentation/pages/login/login_page.dart';
 import '../../../presentation/pages/perfil/perfil_page.dart';
@@ -13,6 +16,8 @@ class AppRoutes {
   static const String home = '/home_page';
   static const String login = '/login_page';
   static const String cliente = '/cliente_page';
+  static const String add_cliente = '/add_cliente_page';
+  static const String edit_cliente = '/edit_cliente_page';
   static const String agendamento = '/agendamento_page';
   static const String add_agendamento = '/add_agendamento_page';
   static const String edit_agendamento = '/edit_agendamento_page';
@@ -28,6 +33,12 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case cliente:
         return MaterialPageRoute(builder: (_) => ClientePage(null));
+      case add_cliente:
+        return MaterialPageRoute(builder: (_) => AddClientePage());
+      case edit_cliente:
+        final args = settings.arguments as Map<String, dynamic>;
+        final cliente = args['cliente'] as Cliente?;
+        return MaterialPageRoute(builder: (_) => EditClientePage(cliente: cliente));
       case agendamento:
         return MaterialPageRoute(builder: (_) => AgendamentoPage(null));
       case add_agendamento:

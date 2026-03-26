@@ -17,7 +17,7 @@ class ClienteApi  {
     _context = context;
   }
 
-  Future<bool> addCliente(ClienteDTO cliente, int user_id) async {
+  Future<bool> addCliente(ClienteDTO cliente) async {
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
 
     var response = await _customDio.dio.post(URL,
@@ -31,7 +31,7 @@ class ClienteApi  {
         "telephone": cliente.telephone,
         "deletado": cliente.deletado,
         "user": {
-          "id":  user_id
+          "id":  2
         },
         "photoName": cliente.photoName,
         "imagemBase64": cliente.imagemBase64

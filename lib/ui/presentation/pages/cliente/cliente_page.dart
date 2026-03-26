@@ -18,6 +18,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../core/constants/enums/drawer_sections.dart';
 import '../../../core/constants/imgs/app_images.dart';
+import '../../../core/constants/routes/app_routes.dart';
 import '../../../core/theme/gradients/app_gradients.dart';
 import '../../../core/theme/styles/app_text_styles.dart';
 import '../../../data/dto/cliente_dto.dart';
@@ -68,7 +69,7 @@ class _ClientePageState extends State<ClientePage> {
   @override
   void initState() {
     userLogado = widget.userLogado;
-    carregarClientes();
+    _carregarClientes();
     _initFocusNode();
     super.initState();
   }
@@ -168,9 +169,10 @@ class _ClientePageState extends State<ClientePage> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            _clearControllers();
-            await _showDialogSaveCliente(context, userLogado!, false, null);
-            carregarClientes(); // <- atualiza lista após fechar o dialog
+            final resultado = await Navigator.pushNamed(context, AppRoutes.add_cliente);
+            if(resultado == true){
+              await _carregarClientes();
+            }
           },
         shape: const CircleBorder(),
         backgroundColor: Colors.green, // verde
@@ -249,7 +251,7 @@ class _ClientePageState extends State<ClientePage> {
     );
   }
 
-  Future<void> carregarClientes() async {
+  Future<void> _carregarClientes() async {
     try {
       ///Filters
       ClienteDTO filters = ClienteDTO();
@@ -343,7 +345,7 @@ class _ClientePageState extends State<ClientePage> {
                        setState(() {
                         isLoader = false;
                         Navigator.pop(context);
-                        carregarClientes(); ///Lista novamente Clientes, após add/update
+                        _carregarClientes(); ///Lista novamente Clientes, após add/update
                       });
                     }
                   },
@@ -588,7 +590,7 @@ class _ClientePageState extends State<ClientePage> {
 }
   ///Add Cliente
   Future<bool> _cadastrarCliente(ClienteDTO c, user_id, BuildContext context) async {
-      return await ClienteApi(context).addCliente(c, user_id);
+      return await ClienteApi(context).addCliente(c);
   }
 
   ///Add Cliente
