@@ -90,9 +90,7 @@ class _AddClientePageState extends State<AddClientePage> {
                       hintText: "Nome",
                       icon: Icons.textsms_outlined,
                       keyboardType: TextInputType.text,
-                      validator: (value){
-                        return null;
-                      },
+
                     ),
                     Utils.sizedBox(altura: 20.0, largura: 0),
                     /// Telefone
@@ -116,9 +114,7 @@ class _AddClientePageState extends State<AddClientePage> {
                       hintText: "Email",
                       icon: Icons.mail,
                       keyboardType: TextInputType.text,
-                      validator: (value){
-                        return null;
-                      },
+
                     ),
                     Utils.sizedBox(altura: 40.0, largura: 0),
                     /// Foto/Galeria Imagem
