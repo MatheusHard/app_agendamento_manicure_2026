@@ -1,4 +1,7 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_agendamento_manicure_2026/ui/core/theme/provider/theme_provider.dart';
+import 'package:app_agendamento_manicure_2026/ui/data/service/notifications/notifications.dart';
+import 'package:app_agendamento_manicure_2026/ui/data/service/worker/alarm_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:app_agendamento_manicure_2026/ui/core/constants/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +10,12 @@ import 'package:provider/provider.dart';
 @pragma('vm:entry-point')
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Notifications.initNotifications(); TODO
 
-
-  //await AndroidAlarmManager.initialize(); TODO
-  //await AlarmManager.initialize(); TODO
+  /// Notificações
+  await Notifications.initNotifications();
+  /// Alarm Manager
+  await AndroidAlarmManager.initialize();
+  await AlarmManager.initialize();
 
   runApp(
     ChangeNotifierProvider(
