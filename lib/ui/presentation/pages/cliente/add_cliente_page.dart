@@ -151,7 +151,7 @@ class _AddClientePageState extends State<AddClientePage> {
 
     setState(() {_isLoading = true;});
     try{
-      await AgendamentoApi(context).addAgendamento(a);
+      await AgendamentoApi().addAgendamento(a);
       if (!mounted) return;
       navigator.pop(true);
     }catch(e){

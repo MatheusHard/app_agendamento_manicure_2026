@@ -13,9 +13,7 @@ class AgendamentoApi {
   final URL = '/agendamentos';
   final FILTRAR = '/filtrar';
 
-  AgendamentoApi(BuildContext context) {
-    _context = context;
-  }
+  AgendamentoApi() {}
 
   Future<bool> addAgendamento(AgendamentoDTO a) async {
 

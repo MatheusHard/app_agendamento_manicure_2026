@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
       //a.dataFinal = Utils.getDataHora();
       a.finalizado = false;
 
-      final dados = await AgendamentoApi(context).getListByFilter(a);
+      final dados = await AgendamentoApi().getListByFilter(a);
       setState(() {
         listaAgendamentos = dados;
         isLoading = false;
@@ -376,11 +376,11 @@ class _HomePageState extends State<HomePage> {
   }
   ///Add Cliente
   Future<bool> _cadastrarAgendamento(AgendamentoDTO a, BuildContext context) async {
-    return await AgendamentoApi(context).addAgendamento(a);
+    return await AgendamentoApi().addAgendamento(a);
   }
   ///Add Cliente
   Future<bool> _atualizarAgendamento(AgendamentoDTO a, BuildContext context) async {
-    return await AgendamentoApi(context).updateAgendamento(a);
+    return await AgendamentoApi().updateAgendamento(a);
   }
   ///Input Clientes
   widgetClientes() {

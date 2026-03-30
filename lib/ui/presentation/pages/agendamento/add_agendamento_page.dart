@@ -141,7 +141,7 @@ class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
 
     setState(() {_isLoading = true;});
     try{
-      await AgendamentoApi(context).addAgendamento(a);
+      await AgendamentoApi().addAgendamento(a);
       if (!mounted) return;
       navigator.pop(true);
     }catch(e){
@@ -191,6 +191,7 @@ class _AddAgendamentoPageState extends State<AddAgendamentoPage> {
     a.user = userDTO;
     a.cliente = cliente;
     a.finalizado = _finalizado;
+    a.deletado = false;
 
     return a;
   }

@@ -128,7 +128,7 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
       a.finalizado = false;
       a.deletado = false;
 
-      final dados = await AgendamentoApi(context).getListByFilter(a);
+      final dados = await AgendamentoApi().getListByFilter(a);
       setState(() {
         listaAgendamentos = dados;
         isLoading = false;
@@ -146,7 +146,7 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
     });
   }
   Future<bool> _deletarAgendamento(AgendamentoDTO a,  BuildContext context) async {
-    return await AgendamentoApi(context).updateAgendamento(a);
+    return await AgendamentoApi().updateAgendamento(a);
   }
   AgendamentoDTO _generateDeletAgendamento(Agendamento agendamento) {
 
