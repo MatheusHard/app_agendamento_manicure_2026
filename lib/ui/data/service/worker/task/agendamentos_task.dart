@@ -21,19 +21,14 @@ class AgendamentosTask {
 
     List<Agendamento> listaAgendamentos = await _loadingAgendamentos(user);
 
-    print(listaAgendamentos.toString());
-
+    int idNot = 10;
     for(Agendamento agendamento in listaAgendamentos){
-
       await Notifications.showNotification(
-          id: 10,
+          id: idNot,
           title: "Agenda Marcada",
-          body:  '''Olá Sr.(a)${user?.username ?? ''} 
-                  voce tem um atendiwento hoje: Sr(a)
-                   ${agendamento.cliente?.name} as 
-                   ${Utils.formatarData(agendamento.dataAtendimento ?? '', false) }'''
+          body:  '''Olá Sr.(a) ${user?.username ?? ''} voce tem um atendiwento hoje: Sr(a) ${agendamento.cliente?.name} às ${Utils.formatarData(agendamento.dataAtendimento ?? '', false) }'''
       );
-
+      idNot ++;
     }
 
   }
@@ -46,7 +41,9 @@ class AgendamentosTask {
       a.cliente = Cliente();
       a.finalizado = false;
       a.deletado = false;
+      a.dataInicial = DateTime.now().toIso8601String();
+      a.dataFinal = DateTime.now().toIso8601String();
 
-     return await AgendamentoApi().getListByFilter(a);
+      return await AgendamentoApi().getListByFilter(a);
   }
 }

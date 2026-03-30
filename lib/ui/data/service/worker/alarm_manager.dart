@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:app_agendamento_manicure_2026/ui/data/service/worker/task/agendamentos_task.dart';
 
-import '../notifications/notifications.dart';
-
 @pragma('vm:entry-point')
 class AlarmManager {
 
@@ -21,8 +19,8 @@ class AlarmManager {
       now.year,
       now.month,
       now.day,
-      16,
-      45,
+      06,
+      00,
     );
 
     // Se já passou das 20h hoje, agenda para amanhã
