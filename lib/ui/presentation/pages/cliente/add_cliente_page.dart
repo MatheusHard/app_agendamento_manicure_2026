@@ -190,6 +190,7 @@ class _AddClientePageState extends State<AddClientePage> {
       cliente.imagemBase64 = bytes != null ? await Utils.base64String(bytes) : null;
       cliente.photoName =  "foto_${userDTO.id}${DateTime.now().millisecondsSinceEpoch}.jpg";
       cliente.user = userDTO;
+      cliente.deletado = false;
 
     return cliente;
   }
