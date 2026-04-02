@@ -147,22 +147,6 @@ class _AddClientePageState extends State<AddClientePage> {
 
   }
 
-  Future<void> _addAgendamento(AgendamentoDTO a, BuildContext context, NavigatorState navigator) async {
-
-    setState(() {_isLoading = true;});
-    try{
-      await AgendamentoApi().addAgendamento(a);
-      if (!mounted) return;
-      navigator.pop(true);
-    }catch(e){
-      print('Erro ao cadastrar o agendaiemnto: $e');
-
-    }finally{
-      setState(() {_isLoading = false;});
-    }
-  }
-
-
   void _initFocusNode(){
       _myFocusNodeName = FocusNode();
       _myFocusNodePhone = FocusNode();
@@ -210,7 +194,7 @@ class _AddClientePageState extends State<AddClientePage> {
     }
   }
 
-
+  // Capture photo
   Future<void> _tirarFoto() async {
     var status = await Permission.camera.request();
     print('status'+status.toString());
@@ -237,17 +221,27 @@ class _AddClientePageState extends State<AddClientePage> {
   // Capture Galley
   Future _getImage(ImageSource source) async {
     final galleryFile = await _picker.pickImage(
-        source: source,
-        maxHeight: 480,
-        maxWidth: 640,
-        imageQuality: 50);
-    setState(() {
-      if (galleryFile != null) {
-        _imagem = File(galleryFile.path);
-        //_loadingFieldsByPhoto(galleryFile); TODO
+      source: source,
+      maxHeight: 480,
+      maxWidth: 640,
+      imageQuality: 50,
+    );
+
+    if (galleryFile != null) {
+      final File originalFile = File(galleryFile.path);
+      final compressedBytes = await Utils.compressImageBytes(originalFile);
+
+      if (compressedBytes != null) {
+        setState(() {
+          _imagem = originalFile;
+          bytes = compressedBytes; // salva os bytes comprimidos
+        });
+        print("Imagem da galeria comprimida: ${bytes!.length / 1024} KB");
       } else {
-        print('No image selected.');
+        print("Falha ao comprimir a imagem da galeria");
       }
-    });
+    } else {
+      print('Nenhuma imagem selecionada.');
+    }
   }
 }

@@ -68,11 +68,7 @@ class _PhotoGalleryImgState extends State<PhotoGalleryNetworkImg> {
           } else {
             final headers = snapshot.data ?? {};
             return Image(
-              image: NetworkImage(
-                widget.url ?? '',
-                //'http://192.168.0.18:8080/uploads/foto_31771340921672.jpg',
-                headers: headers,
-              ),
+              image: NetworkImage('${widget.url}?${DateTime.now().millisecondsSinceEpoch}', headers: headers,),
               width: 250,
               height: 250,
               fit: BoxFit.cover,

@@ -192,14 +192,15 @@ class _EditClientePageState extends State<EditClientePage> {
     UserDTO userDTO = UserDTO();
     userDTO.id = user?.id;
 
+    cliente.id = editCliente?.id;
     cliente.name = _nameController.text;
     cliente.telephone = _phoneController.text;
     cliente.cpf = _cpfController.text;
     cliente.email = _emailController.text;
-    cliente.createdAt = DateTime.now().toIso8601String();
+    cliente.createdAt = editCliente?.createdAt;
     cliente.updatedAt = DateTime.now().toIso8601String();
     cliente.imagemBase64 = bytes != null ? await Utils.base64String(bytes) : null;
-    cliente.photoName =  "foto_${userDTO.id}${DateTime.now().millisecondsSinceEpoch}.jpg";
+    cliente.photoName =  editCliente?.photoName;
     cliente.user = userDTO;
     cliente.deletado = false;
 
@@ -235,17 +236,27 @@ class _EditClientePageState extends State<EditClientePage> {
   // Capture Galley
   Future _getImage(ImageSource source) async {
     final galleryFile = await _picker.pickImage(
-        source: source,
-        maxHeight: 480,
-        maxWidth: 640,
-        imageQuality: 50);
-    setState(() {
-      if (galleryFile != null) {
-        _imagem = File(galleryFile.path);
-        //_loadingFieldsByPhoto(galleryFile); TODO
+      source: source,
+      maxHeight: 480,
+      maxWidth: 640,
+      imageQuality: 50,
+    );
+
+    if (galleryFile != null) {
+      final File originalFile = File(galleryFile.path);
+      final compressedBytes = await Utils.compressImageBytes(originalFile);
+
+      if (compressedBytes != null) {
+        setState(() {
+          _imagem = originalFile;
+          bytes = compressedBytes; // salva os bytes comprimidos
+        });
+        print("Imagem da galeria comprimida: ${bytes!.length / 1024} KB");
       } else {
-        print('No image selected.');
+        print("Falha ao comprimir a imagem da galeria");
       }
-    });
+    } else {
+      print('Nenhuma imagem selecionada.');
+    }
   }
 }

@@ -24,6 +24,9 @@ class CardCliente extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var ff =   '${_customDio.dio.options.baseUrl}/${Utils.URL_UPLOAD}$photoname';
+    print('fotos'+ ff);
+
     return Card(
       child: ListTile(
         onTap: onTap, // Ação de clique
@@ -31,7 +34,7 @@ class CardCliente extends StatelessWidget {
         subtitle: Text(subtitle),
         leading: CircleAvatar(
           backgroundImage: photoname != null ?
-                              NetworkImage('${_customDio.dio.options.baseUrl}/${Utils.URL_UPLOAD}$photoname') :
+                              NetworkImage('${_customDio.dio.options.baseUrl}/${Utils.URL_UPLOAD}$photoname?${DateTime.now().millisecondsSinceEpoch}') :
                               AssetImage(AppImages.semfoto),
         ),
         trailing: Icon(icon),
