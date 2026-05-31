@@ -9,7 +9,6 @@ import 'configurations/dio/configs.dart';
 class ClienteApi  {
 
   BuildContext? _context;
-  final Configs _customDio = Configs();
   final URL = "/clientes";
   final FILTRAR = '/filtrar';
 
@@ -18,7 +17,9 @@ class ClienteApi  {
   }
 
   Future<bool> addCliente(ClienteDTO cliente) async {
-    var response = await _customDio.dio.post(URL,
+
+    final configs = await Configs.create();
+    var response = await configs.dio.post(URL,
         data: cliente.toJson(),
         options: Options(headers: await Utils.requestToken())
     );
@@ -26,7 +27,9 @@ class ClienteApi  {
   }
 
   Future<bool> updateCliente(ClienteDTO cliente) async {
-    var response = await _customDio.dio.put(URL,
+
+    final configs = await Configs.create();
+    var response = await configs.dio.put(URL,
         data: cliente.toJson(),
         options: Options(headers: await Utils.requestToken())
     );
@@ -34,8 +37,10 @@ class ClienteApi  {
   }
 
   Future<List<Cliente>> getList(int user_id, int cliente_id) async {
+
+    final configs = await Configs.create();
     var token = await Utils.recuperarToken(); // Pegue do localStorage, SharedPreferences, etc.
-    var response = await _customDio.dio.get(URL,  options: Options(
+    var response = await configs.dio.get(URL,  options: Options(
       headers: {
         'Authorization': 'Bearer $token',
       },),);
@@ -52,7 +57,9 @@ class ClienteApi  {
     return [];
   }
   Future<List<Cliente>> getListByFilter(ClienteDTO cliente) async {
-    var response = await _customDio.dio.post(
+
+    final configs = await Configs.create();
+    var response = await configs.dio.post(
       URL+FILTRAR,
       data: 	cliente.toJson(),
       options: Options(headers: await Utils.requestToken()));

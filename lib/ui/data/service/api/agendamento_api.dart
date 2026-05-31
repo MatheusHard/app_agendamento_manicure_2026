@@ -8,16 +8,15 @@ import 'configurations/dio/configs.dart';
 
 class AgendamentoApi {
 
-  BuildContext? _context;
-  final Configs _customDio = Configs();
   final URL = '/agendamentos';
   final FILTRAR = '/filtrar';
 
   AgendamentoApi() {}
 
   Future<bool> addAgendamento(AgendamentoDTO a) async {
+    final configs = await Configs.create();
 
-    var response = await _customDio.dio.post(URL,
+    var response = await configs.dio.post(URL,
                                              data: a.toJson(),
                                              options: Options(headers: await Utils.requestToken())
     );
@@ -25,8 +24,9 @@ class AgendamentoApi {
   }
 
   Future<bool> updateAgendamento(AgendamentoDTO a) async {
+    final configs = await Configs.create();
 
-    var response = await _customDio.dio.put(URL,
+    var response = await configs.dio.put(URL,
       data: a.toJson(),
       options: Options(headers: await Utils.requestToken())
     );
@@ -35,7 +35,8 @@ class AgendamentoApi {
 
   Future<List<Agendamento>> getList(int user_id, int cliente_id, bool finalizado) async {
 
-    var response = await _customDio.dio.get(URL,  options: Options(headers: await Utils.requestToken()));
+    final configs = await Configs.create();
+    var response = await configs.dio.get(URL,  options: Options(headers: await Utils.requestToken()));
     if (response.statusCode == 200) {
       var lista = response.data;
       // Aqui você pode fazer o mapeamento de lista para objetos Agendamento
@@ -49,7 +50,8 @@ class AgendamentoApi {
   }
 
   Future<List<Agendamento>> getListByFilter(AgendamentoDTO a) async {
-    var response = await _customDio.dio.post(
+    final configs = await Configs.create();
+    var response = await configs.dio.post(
       URL+FILTRAR,
       data: a.toJson(),
       options: Options(headers: await Utils.requestToken()));

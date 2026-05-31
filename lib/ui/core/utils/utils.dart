@@ -245,6 +245,15 @@ import '../constants/enums/app_platform.dart';
     }
     return compressedBytes;
   }
+  // Alternar Url de api entre Produção ou Homologação
+  static saveUrlIsProd(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("is_prod", value);
+  }
+  static Future<bool> getIsProd() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("is_prod") ?? true;
+  }
 }
 
 

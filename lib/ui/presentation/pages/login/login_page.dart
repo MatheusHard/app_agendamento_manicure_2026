@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   final textFieldFocusNode = FocusNode();
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
+  bool _isHomologacao = false;
 
   bool _obscured = true;
   bool _isLoading = false;
@@ -39,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState (){
     _loadUser();
+    _loadAmbiente();
     _focusEmailNode = FocusNode();
     _focusPaswordNode = FocusNode();
     super.initState();
@@ -51,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: _isHomologacao ? Colors.yellow.shade100 : null,
       body: Center(
         child: SingleChildScrollView(
           child: ConstrainedBox(
@@ -64,7 +67,28 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    LogoImg(width: MediaQuery.of(context).size.width, tamanho: 3, url: AppImages.logoImg,),
+                    // TEXTO OPCIONAL
+                    if (_isHomologacao)
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          "AMBIENTE HOMOLOGAÇÃO",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    LogoImg(
+                      width: MediaQuery.of(context).size.width,
+                      tamanho: 3, url: AppImages.logoImg,
+                      onChangeAmbiente: (isHomologacao) {
+                        setState(() {
+                          _isHomologacao = isHomologacao;
+                        });
+                      },),
 
                     Utils.sizedBox(altura: 30.0),
 
@@ -145,6 +169,12 @@ class _LoginPageState extends State<LoginPage> {
     _loadConectado();
   }
 
+  Future<void> _loadAmbiente() async {
+    bool isProd = await Utils.getIsProd();
+    setState(() {
+      _isHomologacao = !isProd;
+    });
+  }
   void _logar() async {
     bool result = await LoginApi(context).login(_email, _senha, _isManterConectado);
     setState(() {

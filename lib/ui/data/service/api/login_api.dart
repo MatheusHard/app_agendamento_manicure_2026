@@ -17,10 +17,9 @@ class LoginApi {
   Future<bool> login(String username, String password, bool isChecked) async {
 
     bool flag = false;
-    var customDio = Configs();
-
+    final configs = await Configs.create();
     try{
-      var response = await customDio.dio.post("/login", data: {
+      var response = await configs.dio.post("/login", data: {
         "username": username,
         "password": password
       });
